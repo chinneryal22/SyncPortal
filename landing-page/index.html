@@ -513,44 +513,107 @@
             border-color: var(--border-accent);
         }
         
-        /* Branded card system */
+        /* Sleek card system - based on PillarCard design */
         .card {
             background: var(--bg-card);
-            border: 1px solid var(--border-primary);
-            border-radius: var(--radius-lg);
-            padding: var(--space-2xl);
-            transition: all 0.15s ease;
+            border: 1px solid rgba(var(--border-rgb), 0.5);
+            border-radius: var(--radius-xl);
+            padding: var(--space-3xl);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--brand-gradient);
+            opacity: 0.05;
+            transition: opacity 0.3s ease;
         }
         
         .card:hover {
-            border-color: var(--border-brand);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-brand);
+            border-color: rgba(11, 124, 232, 0.5);
+            transform: scale(1.02);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .card:hover::before {
+            opacity: 0.1;
         }
         
         .card-icon {
             width: 48px;
             height: 48px;
-            background: var(--brand-gradient);
+            background: transparent;
+            border: 2px solid var(--brand-primary);
             border-radius: var(--radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: var(--space-lg);
-            font-size: 20px;
-            box-shadow: var(--shadow-brand);
+            margin-bottom: var(--space-xl);
+            font-size: 24px;
+            color: var(--brand-primary);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover .card-icon {
+            background: var(--brand-primary);
+            color: white;
+            transform: scale(1.05);
         }
         
         .card-title {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 700;
             color: var(--text-primary);
             margin-bottom: var(--space-sm);
+            transition: color 0.3s ease;
+        }
+        
+        .card:hover .card-title {
+            color: var(--brand-primary);
         }
         
         .card-description {
             color: var(--text-secondary);
             line-height: 1.6;
+            flex-grow: 1;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .card-cta {
+            display: flex;
+            align-items: center;
+            color: var(--brand-primary);
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: auto;
+        }
+        
+        .card-cta-icon {
+            margin-left: var(--space-sm);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover .card-cta-icon {
+            transform: translateX(4px);
+        }
+        
+        /* Add border RGB variables for themes */
+        :root,
+        [data-theme="dark"] {
+            --border-rgb: 255, 255, 255;
+        }
+        
+        [data-theme="light"] {
+            --border-rgb: 15, 23, 42;
         }
         
         /* Section styling - full page height */
@@ -1032,6 +1095,9 @@
                     <p class="card-description">
                         Your team spends precious time switching between 10+ different systems instead of focusing on what matters most.
                     </p>
+                    <div class="card-cta">
+                        Learn More <span class="card-cta-icon">→</span>
+                    </div>
                 </div>
                 <div class="card animate-in animate-delay-1">
                     <div class="card-icon">⚠️</div>
@@ -1039,6 +1105,9 @@
                     <p class="card-description">
                         Critical information disappears in email chains, spreadsheets, and disconnected systems, leading to costly mistakes.
                     </p>
+                    <div class="card-cta">
+                        Learn More <span class="card-cta-icon">→</span>
+                    </div>
                 </div>
                 <div class="card animate-in animate-delay-2">
                     <div class="card-icon">✏️</div>
@@ -1046,6 +1115,9 @@
                     <p class="card-description">
                         Duplicate data entry creates errors, inconsistencies, and frustration across your entire organization.
                     </p>
+                    <div class="card-cta">
+                        Learn More <span class="card-cta-icon">→</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1069,6 +1141,9 @@
                     <p class="card-description">
                         Connect any system: CRM, accounting, inventory, HR, and more. One login, complete visibility.
                     </p>
+                    <div class="card-cta">
+                        View Details <span class="card-cta-icon">→</span>
+                    </div>
                 </div>
                 <div class="card animate-in animate-delay-1">
                     <div class="card-icon">🔄</div>
@@ -1076,6 +1151,9 @@
                     <p class="card-description">
                         Eliminate manual data entry with real-time synchronization between all your business systems.
                     </p>
+                    <div class="card-cta">
+                        View Details <span class="card-cta-icon">→</span>
+                    </div>
                 </div>
                 <div class="card animate-in animate-delay-2">
                     <div class="card-icon">📊</div>
@@ -1083,6 +1161,9 @@
                     <p class="card-description">
                         Role-based dashboards showing exactly what each team member needs to see, when they need to see it.
                     </p>
+                    <div class="card-cta">
+                        View Details <span class="card-cta-icon">→</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1159,6 +1240,9 @@
                     <p class="card-description">
                         Bank-level encryption, role-based access controls, and compliance with industry standards.
                     </p>
+                    <div class="card-cta">
+                        Security Details <span class="card-cta-icon">→</span>
+                    </div>
                 </div>
                 <div class="card animate-in animate-delay-1">
                     <div class="card-icon">📱</div>
@@ -1166,6 +1250,9 @@
                     <p class="card-description">
                         Access your portal from any device, anywhere. Native mobile app experience in your browser.
                     </p>
+                    <div class="card-cta">
+                        View Demo <span class="card-cta-icon">→</span>
+                    </div>
                 </div>
                 <div class="card animate-in animate-delay-2">
                     <div class="card-icon">📈</div>
@@ -1173,6 +1260,9 @@
                     <p class="card-description">
                         Custom reports, real-time dashboards, and business intelligence tools to drive decisions.
                     </p>
+                    <div class="card-cta">
+                        View Analytics <span class="card-cta-icon">→</span>
+                    </div>
                 </div>
                 <div class="card animate-in animate-delay-3">
                     <div class="card-icon">⚙️</div>
@@ -1180,6 +1270,9 @@
                     <p class="card-description">
                         Connect with 100+ popular business tools or any system with an API. Unlimited possibilities.
                     </p>
+                    <div class="card-cta">
+                        View Integrations <span class="card-cta-icon">→</span>
+                    </div>
                 </div>
                 <div class="card animate-in animate-delay-1">
                     <div class="card-icon">👥</div>
@@ -1187,6 +1280,9 @@
                     <p class="card-description">
                         Built-in communication, task management, and workflow automation for seamless teamwork.
                     </p>
+                    <div class="card-cta">
+                        Team Features <span class="card-cta-icon">→</span>
+                    </div>
                 </div>
                 <div class="card animate-in animate-delay-2">
                     <div class="card-icon">🎧</div>
@@ -1194,6 +1290,9 @@
                     <p class="card-description">
                         Expert implementation team and ongoing support to ensure your success every step of the way.
                     </p>
+                    <div class="card-cta">
+                        Contact Support <span class="card-cta-icon">→</span>
+                    </div>
                 </div>
             </div>
         </div>
