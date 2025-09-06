@@ -8,12 +8,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* DataSync Dynamics Brand Colors */
-            --brand-primary: #0066cc;
-            --brand-secondary: #004499;
-            --brand-accent: #00aaff;
-            --brand-gradient: linear-gradient(135deg, #0066cc 0%, #00aaff 100%);
-            --brand-gradient-subtle: linear-gradient(135deg, #0066cc 0%, #004499 50%, #00aaff 100%);
+            /* Authentic DataSync Dynamics Brand Colors */
+            --brand-primary: #0b7ce8;
+            --brand-secondary: #0965c5;
+            --brand-accent: #2b8af2;
+            --brand-gradient: linear-gradient(135deg, #0b7ce8 0%, #2b8af2 100%);
+            --brand-gradient-subtle: linear-gradient(135deg, #0965c5 0%, #0b7ce8 50%, #2b8af2 100%);
             
             /* Background Colors */
             --bg-primary: #0a0b0f;
@@ -21,14 +21,14 @@
             --bg-tertiary: #14151c;
             --bg-card: #181922;
             --bg-subtle: rgba(255, 255, 255, 0.02);
-            --bg-brand: rgba(0, 102, 204, 0.05);
+            --bg-brand: rgba(11, 124, 232, 0.05);
             
             /* Text hierarchy */
             --text-primary: #ffffff;
             --text-secondary: rgba(255, 255, 255, 0.75);
             --text-tertiary: rgba(255, 255, 255, 0.55);
             --text-muted: rgba(255, 255, 255, 0.35);
-            --text-brand: #00aaff;
+            --text-brand: #2b8af2;
             
             /* Status colors */
             --success: #10b981;
@@ -38,15 +38,15 @@
             /* Borders and dividers */
             --border-primary: rgba(255, 255, 255, 0.08);
             --border-secondary: rgba(255, 255, 255, 0.05);
-            --border-accent: rgba(0, 170, 255, 0.25);
-            --border-brand: rgba(0, 102, 204, 0.3);
+            --border-accent: rgba(43, 138, 242, 0.25);
+            --border-brand: rgba(11, 124, 232, 0.3);
             
             /* Shadows */
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
-            --shadow-brand: 0 4px 20px rgba(0, 102, 204, 0.15);
+            --shadow-brand: 0 4px 20px rgba(11, 124, 232, 0.15);
             
             /* Spacing system */
             --space-xs: 0.25rem;
@@ -96,7 +96,7 @@
         .logo-icon {
             width: 32px;
             height: 32px;
-            background: var(--brand-gradient);
+            background: var(--brand-primary);
             border-radius: var(--radius-md);
             display: flex;
             align-items: center;
@@ -105,27 +105,54 @@
             overflow: hidden;
         }
         
+        /* Authentic DataSync orbital logo design */
         .logo-icon::before {
             content: '';
             position: absolute;
-            top: 2px;
-            left: 2px;
-            right: 2px;
-            bottom: 2px;
-            background: var(--bg-primary);
-            border-radius: calc(var(--radius-md) - 2px);
+            top: 50%;
+            left: 50%;
+            width: 18px;
+            height: 18px;
+            transform: translate(-50%, -50%);
+            border: 2px solid white;
+            border-radius: 50%;
+            border-top-color: rgba(255, 255, 255, 0.3);
+            border-right-color: rgba(255, 255, 255, 0.3);
         }
         
         .logo-icon::after {
-            content: 'DS';
-            position: relative;
-            z-index: 1;
-            font-size: 12px;
-            font-weight: 900;
-            background: var(--brand-gradient);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            transform: translate(-50%, -50%) rotate(45deg);
+            border: 2px solid white;
+            border-radius: 50%;
+            border-bottom-color: rgba(255, 255, 255, 0.3);
+            border-left-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Connection dots */
+        .logo-icon .orbit-dot-1 {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            top: 5px;
+            right: 10px;
+        }
+        
+        .logo-icon .orbit-dot-2 {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            bottom: 8px;
+            left: 6px;
         }
         
         .logo-text .brand {
@@ -214,7 +241,7 @@
         
         .nav-cta:hover {
             transform: translateY(-1px);
-            box-shadow: 0 6px 25px rgba(0, 102, 204, 0.25);
+            box-shadow: 0 6px 25px rgba(11, 124, 232, 0.25);
         }
         
         /* Hero section - branded */
@@ -305,7 +332,7 @@
         
         .btn-primary:hover {
             transform: translateY(-1px);
-            box-shadow: 0 6px 25px rgba(0, 102, 204, 0.25);
+            box-shadow: 0 6px 25px rgba(11, 124, 232, 0.25);
         }
         
         .btn-secondary {
@@ -626,7 +653,7 @@
         .form-input:focus {
             outline: none;
             border-color: var(--brand-primary);
-            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+            box-shadow: 0 0 0 3px rgba(11, 124, 232, 0.1);
         }
         
         .form-input::placeholder {
@@ -734,7 +761,10 @@
     <header class="header" id="header">
         <nav class="nav container">
             <a href="#" class="logo">
-                <div class="logo-icon"></div>
+                <div class="logo-icon">
+                    <div class="orbit-dot-1"></div>
+                    <div class="orbit-dot-2"></div>
+                </div>
                 <div class="logo-text">
                     <span class="brand">DataSync</span> Dynamics
                 </div>
@@ -1143,7 +1173,10 @@
         <div class="container">
             <div class="footer-content">
                 <div class="logo footer-logo">
-                    <div class="logo-icon"></div>
+                    <div class="logo-icon">
+                        <div class="orbit-dot-1"></div>
+                        <div class="orbit-dot-2"></div>
+                    </div>
                     <div class="logo-text">
                         <span class="brand">DataSync</span> Dynamics
                     </div>
