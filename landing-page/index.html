@@ -127,39 +127,35 @@
                 box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        /* Theme Toggle Button */
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: var(--bg-card);
+        /* Navbar Theme Toggle Button */
+        .nav-theme-toggle {
+            background: transparent;
             border: 1px solid var(--border-primary);
             border-radius: 50%;
-            width: 48px;
-            height: 48px;
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: var(--shadow-md);
+            margin-left: var(--space-lg);
         }
         
-        .theme-toggle:hover {
+        .nav-theme-toggle:hover {
             transform: translateY(-1px);
-            box-shadow: var(--shadow-lg);
             border-color: var(--border-brand);
+            background: var(--bg-subtle);
         }
         
-        .theme-toggle-icon {
-            width: 20px;
-            height: 20px;
+        .nav-theme-icon {
+            width: 16px;
+            height: 16px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         /* Sun icon (for dark mode - shows sun to indicate "switch to light") */
-        .theme-toggle[data-theme="dark"] .theme-toggle-icon {
+        .nav-theme-toggle[data-theme="dark"] .nav-theme-icon {
             background: radial-gradient(circle, #fbbf24 30%, transparent 30%),
                         conic-gradient(from 0deg, transparent, transparent, #fbbf24, transparent);
             border-radius: 50%;
@@ -167,10 +163,21 @@
         }
         
         /* Moon icon (for light mode - shows moon to indicate "switch to dark") */
-        .theme-toggle[data-theme="light"] .theme-toggle-icon {
+        .nav-theme-toggle[data-theme="light"] .nav-theme-icon {
             background: linear-gradient(135deg, transparent 40%, var(--text-primary) 40%);
             border-radius: 50%;
             transform: rotate(-45deg);
+        }
+        
+        /* Floating state adjustments for theme toggle */
+        .header.floating .nav-theme-toggle {
+            width: 28px;
+            height: 28px;
+        }
+        
+        .header.floating .nav-theme-icon {
+            width: 14px;
+            height: 14px;
         }
         
         /* DataSync Dynamics Logo */
@@ -890,11 +897,6 @@
     </style>
 </head>
 <body>
-    <!-- Theme Toggle -->
-    <button class="theme-toggle" id="theme-toggle" data-theme="dark" aria-label="Toggle theme">
-        <div class="theme-toggle-icon"></div>
-    </button>
-
     <!-- Branded Header -->
     <header class="header" id="header">
         <nav class="nav container">
@@ -912,6 +914,11 @@
                 <li><a href="#solution" class="nav-link">Solution</a></li>
                 <li><a href="#results" class="nav-link">Results</a></li>
                 <li><a href="#process" class="nav-link">Process</a></li>
+                <li>
+                    <button class="nav-theme-toggle" id="nav-theme-toggle" data-theme="dark" aria-label="Toggle theme">
+                        <div class="nav-theme-icon"></div>
+                    </button>
+                </li>
             </ul>
             <a href="#contact" class="nav-cta">Get Started</a>
         </nav>
@@ -1332,10 +1339,9 @@
         function updateNavbar() {
             const header = document.getElementById('header');
             const scrollY = window.scrollY;
-            const windowHeight = window.innerHeight;
-            const heroHeight = windowHeight * 0.7; // Adjust this threshold as needed
             
-            if (scrollY > heroHeight) {
+            // Trigger floating state immediately when scrolling starts
+            if (scrollY > 0) {
                 header.classList.add('floating');
             } else {
                 header.classList.remove('floating');
@@ -1429,7 +1435,7 @@
         });
         
         // Theme Toggle Functionality (Particle.is inspired)
-        const themeToggle = document.getElementById('theme-toggle');
+        const themeToggle = document.getElementById('nav-theme-toggle');
         const html = document.documentElement;
         
         // Check for saved theme or default to dark
