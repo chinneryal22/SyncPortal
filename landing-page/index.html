@@ -264,33 +264,59 @@
             padding: 0 var(--space-xl);
         }
         
-        /* Branded header */
+        /* Particle.is inspired floating navbar */
         .header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(10, 11, 15, 0.9);
-            backdrop-filter: blur(16px) saturate(180%);
-            border-bottom: 1px solid var(--border-primary);
             z-index: 50;
-            transition: all 0.2s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
         }
         
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: var(--brand-gradient);
-            opacity: 0;
-            transition: opacity 0.2s ease;
+        /* Default state - integrated with hero */
+        .header .nav {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            margin: 0;
+            padding: 0 var(--space-xl);
+            box-shadow: none;
+            backdrop-filter: none;
+            pointer-events: all;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        .header.scrolled::before {
-            opacity: 1;
+        /* Floating state - elegant floating box */
+        .header.floating .nav {
+            background: rgba(var(--bg-card-rgb), 0.9);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--border-primary);
+            border-radius: 16px;
+            margin: 16px auto;
+            padding: 12px 24px;
+            max-width: 800px;
+            box-shadow: var(--shadow-xl);
+            transform: translateY(0);
+        }
+        
+        /* Light theme floating adjustments */
+        [data-theme="light"] .header.floating .nav {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: var(--border-primary);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 
+                        0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        /* Add RGB values for backdrop */
+        :root,
+        [data-theme="dark"] {
+            --bg-card-rgb: 24, 25, 34;
+        }
+        
+        [data-theme="light"] {
+            --bg-card-rgb: 255, 255, 255;
         }
         
         .nav {
@@ -298,6 +324,21 @@
             align-items: center;
             justify-content: space-between;
             height: 64px;
+        }
+        
+        /* Floating state height adjustment */
+        .header.floating .nav {
+            height: 56px;
+        }
+        
+        /* Logo scaling in floating state */
+        .header.floating .logo {
+            font-size: 18px;
+        }
+        
+        .header.floating .logo-icon {
+            width: 28px;
+            height: 28px;
         }
         
         .nav-links {
@@ -1284,15 +1325,34 @@
     </footer>
 
     <script>
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
+        // Particle.is inspired navbar scroll behavior
+        let lastScrollY = 0;
+        let ticking = false;
+        
+        function updateNavbar() {
             const header = document.getElementById('header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const heroHeight = windowHeight * 0.7; // Adjust this threshold as needed
+            
+            if (scrollY > heroHeight) {
+                header.classList.add('floating');
             } else {
-                header.classList.remove('scrolled');
+                header.classList.remove('floating');
             }
-        });
+            
+            lastScrollY = scrollY;
+            ticking = false;
+        }
+        
+        function requestTick() {
+            if (!ticking) {
+                requestAnimationFrame(updateNavbar);
+                ticking = true;
+            }
+        }
+        
+        window.addEventListener('scroll', requestTick);
 
         // FAQ functionality
         document.querySelectorAll('.faq-question').forEach(question => {
