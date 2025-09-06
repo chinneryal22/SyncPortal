@@ -14,7 +14,11 @@
             --brand-accent: #2b8af2;
             --brand-gradient: linear-gradient(135deg, #0b7ce8 0%, #2b8af2 100%);
             --brand-gradient-subtle: linear-gradient(135deg, #0965c5 0%, #0b7ce8 50%, #2b8af2 100%);
-            
+        }
+
+        /* Dark Theme (default) */
+        :root,
+        [data-theme="dark"] {
             /* Background Colors */
             --bg-primary: #0a0b0f;
             --bg-secondary: #0f1016;
@@ -29,19 +33,51 @@
             --text-tertiary: rgba(255, 255, 255, 0.55);
             --text-muted: rgba(255, 255, 255, 0.35);
             --text-brand: #2b8af2;
+        }
+
+        /* Light Theme */
+        [data-theme="light"] {
+            /* Background Colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            --bg-card: #ffffff;
+            --bg-subtle: rgba(11, 124, 232, 0.02);
+            --bg-brand: rgba(11, 124, 232, 0.08);
             
-            /* Status colors */
+            /* Text hierarchy */
+            --text-primary: #0f172a;
+            --text-secondary: rgba(15, 23, 42, 0.75);
+            --text-tertiary: rgba(15, 23, 42, 0.55);
+            --text-muted: rgba(15, 23, 42, 0.4);
+            --text-brand: #0965c5;
+            
+            /* Light theme borders and shadows */
+            --border-primary: rgba(15, 23, 42, 0.15);
+            --border-secondary: rgba(15, 23, 42, 0.08);
+            --border-accent: rgba(11, 124, 232, 0.3);
+            --border-brand: rgba(11, 124, 232, 0.25);
+            
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --shadow-brand: 0 4px 20px rgba(11, 124, 232, 0.15);
+        }
+
+        /* Global styles and status colors */
+        :root {
+            /* Status colors (consistent across themes) */
             --success: #10b981;
             --warning: #f59e0b;
             --error: #ef4444;
             
-            /* Borders and dividers */
+            /* Dark theme borders and shadows (default) */
             --border-primary: rgba(255, 255, 255, 0.08);
             --border-secondary: rgba(255, 255, 255, 0.05);
             --border-accent: rgba(43, 138, 242, 0.25);
             --border-brand: rgba(11, 124, 232, 0.3);
             
-            /* Shadows */
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
@@ -79,6 +115,62 @@
             font-weight: 400;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Smooth transitions for theme switching */
+        *, *::before, *::after {
+            transition: 
+                background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .theme-toggle:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--border-brand);
+        }
+        
+        .theme-toggle-icon {
+            width: 20px;
+            height: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Sun icon (for dark mode - shows sun to indicate "switch to light") */
+        .theme-toggle[data-theme="dark"] .theme-toggle-icon {
+            background: radial-gradient(circle, #fbbf24 30%, transparent 30%),
+                        conic-gradient(from 0deg, transparent, transparent, #fbbf24, transparent);
+            border-radius: 50%;
+            position: relative;
+        }
+        
+        /* Moon icon (for light mode - shows moon to indicate "switch to dark") */
+        .theme-toggle[data-theme="light"] .theme-toggle-icon {
+            background: linear-gradient(135deg, transparent 40%, var(--text-primary) 40%);
+            border-radius: 50%;
+            transform: rotate(-45deg);
         }
         
         /* DataSync Dynamics Logo */
@@ -757,6 +849,11 @@
     </style>
 </head>
 <body>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="theme-toggle" data-theme="dark" aria-label="Toggle theme">
+        <div class="theme-toggle-icon"></div>
+    </button>
+
     <!-- Branded Header -->
     <header class="header" id="header">
         <nav class="nav container">
@@ -1269,6 +1366,57 @@
         // Observe elements for animation
         document.querySelectorAll('.animate-in').forEach(el => {
             observer.observe(el);
+        });
+        
+        // Theme Toggle Functionality (Particle.is inspired)
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        
+        // Check for saved theme or default to dark
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        html.setAttribute('data-theme', savedTheme);
+        themeToggle.setAttribute('data-theme', savedTheme);
+        
+        // Theme toggle function
+        function toggleTheme() {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            // Apply theme with smooth transition
+            html.style.transition = 'color-scheme 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+            html.setAttribute('data-theme', newTheme);
+            html.style.colorScheme = newTheme;
+            themeToggle.setAttribute('data-theme', newTheme);
+            
+            // Save theme preference
+            localStorage.setItem('theme', newTheme);
+            
+            // Add a subtle pulse animation
+            themeToggle.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                themeToggle.style.transform = '';
+            }, 150);
+        }
+        
+        // Theme toggle event listener
+        themeToggle.addEventListener('click', toggleTheme);
+        
+        // System theme change detection
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        mediaQuery.addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                const systemTheme = e.matches ? 'dark' : 'light';
+                html.setAttribute('data-theme', systemTheme);
+                themeToggle.setAttribute('data-theme', systemTheme);
+            }
+        });
+        
+        // Keyboard accessibility
+        themeToggle.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleTheme();
+            }
         });
     </script>
 </body>
