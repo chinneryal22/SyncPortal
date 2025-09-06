@@ -171,13 +171,14 @@
         
         /* Floating state adjustments for theme toggle */
         .header.floating .nav-theme-toggle {
-            width: 28px;
-            height: 28px;
+            width: 24px;
+            height: 24px;
+            margin-left: var(--space-sm);
         }
         
         .header.floating .nav-theme-icon {
-            width: 14px;
-            height: 14px;
+            width: 12px;
+            height: 12px;
         }
         
         /* DataSync Dynamics Logo */
@@ -302,8 +303,8 @@
             border: 1px solid var(--border-primary);
             border-radius: 16px;
             margin: 16px auto;
-            padding: 12px 24px;
-            max-width: 800px;
+            padding: 8px 20px;
+            max-width: 900px;
             box-shadow: var(--shadow-xl);
             transform: translateY(0);
         }
@@ -335,17 +336,34 @@
         
         /* Floating state height adjustment */
         .header.floating .nav {
-            height: 56px;
+            height: 48px;
         }
         
         /* Logo scaling in floating state */
         .header.floating .logo {
-            font-size: 18px;
+            font-size: 16px;
+            gap: 6px;
         }
         
         .header.floating .logo-icon {
-            width: 28px;
-            height: 28px;
+            width: 24px;
+            height: 24px;
+        }
+        
+        /* Nav links spacing optimization */
+        .header.floating .nav-links {
+            gap: var(--space-lg);
+        }
+        
+        /* Nav link font size adjustment */
+        .header.floating .nav-link {
+            font-size: 13px;
+        }
+        
+        /* CTA button sizing in floating state */
+        .header.floating .nav-cta {
+            padding: 6px 14px;
+            font-size: 13px;
         }
         
         .nav-links {
@@ -353,6 +371,7 @@
             align-items: center;
             gap: var(--space-2xl);
             list-style: none;
+            white-space: nowrap;
         }
         
         .nav-link {
@@ -857,6 +876,27 @@
             
             .nav-links {
                 display: none;
+            }
+            
+            /* Mobile floating navbar adjustments */
+            .header.floating .nav {
+                max-width: 90%;
+                margin: 12px auto;
+                padding: 6px 16px;
+            }
+            
+            .header.floating .logo {
+                font-size: 14px;
+            }
+            
+            .header.floating .logo-icon {
+                width: 20px;
+                height: 20px;
+            }
+            
+            .header.floating .nav-cta {
+                padding: 4px 12px;
+                font-size: 12px;
             }
             
             .grid-2 {
