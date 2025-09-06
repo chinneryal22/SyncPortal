@@ -940,7 +940,7 @@
     <!-- Branded Header -->
     <header class="header" id="header">
         <nav class="nav container">
-            <a href="#" class="logo">
+            <a href="#" class="logo" id="logo-link">
                 <div class="logo-icon">
                     <div class="orbit-dot-1"></div>
                     <div class="orbit-dot-2"></div>
@@ -1523,6 +1523,16 @@
                 e.preventDefault();
                 toggleTheme();
             }
+        });
+        
+        // Logo click to scroll to top
+        const logoLink = document.getElementById('logo-link');
+        logoLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
     </script>
 </body>
